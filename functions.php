@@ -145,3 +145,13 @@ function seokar_widgets_init() {
     ]);
 }
 add_action('widgets_init', 'seokar_widgets_init');
+// تصویر شاخص صفحه
+function seokar_post_thumbnail() {
+    if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
+        return;
+    }
+
+    echo '<div class="post-thumbnail">';
+    the_post_thumbnail('large', ['class' => 'img-fluid']);
+    echo '</div>';
+}
