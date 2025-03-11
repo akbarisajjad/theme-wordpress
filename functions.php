@@ -133,3 +133,15 @@ function seokar_custom_logo_with_link($html) {
     return $html;
 }
 add_filter('get_custom_logo', 'seokar_custom_logo_with_link');
+function seokar_widgets_init() {
+    register_sidebar([
+        'name'          => __('سایدبار اصلی', 'seokar'),
+        'id'            => 'sidebar-1',
+        'description'   => __('این سایدبار در صفحات اصلی نمایش داده می‌شود.', 'seokar'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ]);
+}
+add_action('widgets_init', 'seokar_widgets_init');
