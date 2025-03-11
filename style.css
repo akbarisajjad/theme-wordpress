@@ -1,0 +1,700 @@
+/*
+Theme Name: Seokar
+Theme URI: https://seokar.click
+Author: Sajjad Akbari
+Author URI: https://sajjadakbari.ir
+Description: قالب حرفه‌ای سئوکار برای وردپرس، طراحی شده برای بهینه‌سازی سئو و سرعت سایت.
+Version: 1.0.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: seokar
+Tags: seo-friendly, custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+این قالب، همانند وردپرس، تحت مجوز GPL منتشر شده است.
+از آن برای ساخت پروژه‌های خلاقانه و حرفه‌ای استفاده کنید و تجربیات خود را به اشتراک بگذارید.
+
+Seokar based on Underscores https://seokar.click/, (C) 2012-2020 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+Normalizing styles have been helped along thanks to the fine work of
+Nicolas Gallagher and Jonathan Neal https://github.com/akbarisajjad/theme-wordpress/
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Generic
+	- Normalize
+	- Box sizing
+# Base
+	- Typography
+	- Elements
+	- Links
+	- Forms
+## Layouts
+# Components
+	- Navigation
+	- Posts and pages
+	- Comments
+	- Widgets
+	- Media
+	- Captions
+	- Galleries
+# Plugins
+	- Jetpack infinite scroll
+# Utilities
+	- Accessibility
+	- Alignments
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Generic
+--------------------------------------------------------------*/
+
+/* Normalize
+--------------------------------------------- */
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Box sizing
+--------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*--------------------------------------------------------------
+# Base
+--------------------------------------------------------------*/
+
+/* Typography
+--------------------------------------------- */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* Elements
+--------------------------------------------- */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+}
+
+/* Links
+--------------------------------------------- */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+/* Forms
+--------------------------------------------- */
+input,
+button,
+textarea,
+select {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    transition: border-color var(--transition-speed);
+}
+
+input:focus,
+button:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/*--------------------------------------------------------------
+# Layouts
+--------------------------------------------------------------*/
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/*--------------------------------------------------------------
+# Components
+--------------------------------------------------------------*/
+
+/* Navigation
+--------------------------------------------- */
+.main-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.main-navigation ul li a {
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.main-navigation ul li a:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+/* Posts and pages
+--------------------------------------------- */
+.entry-header {
+    margin-bottom: 2rem;
+}
+
+.entry-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.entry-content {
+    line-height: 1.8;
+}
+
+.entry-content p {
+    margin-bottom: 1.5rem;
+}
+
+/* Comments
+--------------------------------------------- */
+.comment-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-list .comment {
+    margin-bottom: 1.5rem;
+}
+
+.comment-list .comment-body {
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+}
+
+/* Widgets
+--------------------------------------------- */
+.widget {
+    margin-bottom: 2rem;
+}
+
+.widget-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.widget ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.widget ul li {
+    margin-bottom: 0.5rem;
+}
+
+.widget ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+.widget ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Media
+--------------------------------------------- */
+.media {
+    margin-bottom: 1.5rem;
+}
+
+.media img {
+    border-radius: var(--border-radius);
+}
+
+/* Captions
+--------------------------------------------- */
+.wp-caption {
+    margin-bottom: 1.5rem;
+}
+
+.wp-caption-text {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* Galleries
+--------------------------------------------- */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.gallery-item {
+    flex: 1 1 calc(33.333% - 1rem);
+}
+
+/*--------------------------------------------------------------
+# Plugins
+--------------------------------------------------------------*/
+
+/* Jetpack infinite scroll
+--------------------------------------------- */
+.infinite-scroll .pagination {
+    display: none;
+}
+
+/*--------------------------------------------------------------
+# Utilities
+--------------------------------------------------------------*/
+
+/* Accessibility
+--------------------------------------------- */
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
+/* Alignments
+--------------------------------------------- */
+.alignleft {
+    float: left;
+    margin-right: 1.5rem;
+}
+
+.alignright {
+    float: right;
+    margin-left: 1.5rem;
+}
+
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*--------------------------------------------------------------
+# Dark Theme
+--------------------------------------------------------------*/
+[data-theme="dark"] {
+    --background-color: #1E1E1E;
+    --text-color: #E0E0E0;
+    --secondary-color: #333;
+    --toggle-bg: #444;
+    --toggle-dot: #fff;
+    --glass-bg: rgba(30, 30, 30, 0.8);
+}
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: background-color var(--transition-speed);
+}
+
+.button:hover {
+    background-color: var(--accent-color);
+}
+
+.button.secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.button.secondary:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Cards
+--------------------------------------------------------------*/
+.card {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/*--------------------------------------------------------------
+# Notification Bar
+--------------------------------------------------------------*/
+.notification-bar {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.notification-bar span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scrollText 15s linear infinite;
+}
+
+@keyframes scrollText {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.close-notification {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*--------------------------------------------------------------
+# Dark Mode Toggle
+--------------------------------------------------------------*/
+.dark-mode-toggle {
+    width: 40px;
+    height: 20px;
+    background-color: var(--toggle-bg);
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: inset 2px 2px 5px #aaa, inset -2px -2px 5px #fff;
+    transition: background-color var(--transition-speed);
+}
+
+.dark-mode-toggle::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: var(--toggle-dot);
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform var(--transition-speed), background-color var(--transition-speed);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode-toggle.active::before {
+    transform: translateX(20px);
+}
+
+/*--------------------------------------------------------------
+# Utility Classes
+--------------------------------------------------------------*/
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/*--------------------------------------------------------------
+# Responsive Design
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-navigation {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: var(--menu-width);
+        height: 100vh;
+        background-color: var(--glass-bg);
+        backdrop-filter: blur(var(--glass-blur));
+        box-shadow: var(--shadow-light);
+        transition: right var(--transition-speed);
+        z-index: 1000;
+        padding: 20px;
+    }
+
+    .main-navigation.active {
+        right: 0;
+        display: block;
+    }
+
+    .main-navigation ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .mega-menu .column {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-footer .widget-area {
+        flex-direction: column;
+    }
+}
+/*--------------------------------------------------------------
+# Grid Layout
+--------------------------------------------------------------*/
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/*--------------------------------------------------------------
+# Flexbox Layout
+--------------------------------------------------------------*/
+.flex {
+    display: flex;
+    gap: 20px;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+/*--------------------------------------------------------------
+# Spacing Utilities
+--------------------------------------------------------------*/
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+.pt-10 { padding-top: 10px; }
+.pt-20 { padding-top: 20px; }
+.pb-10 { padding-bottom: 10px; }
+.pb-20 { padding-bottom: 20px; }
+.px-15 { padding-left: 15px; padding-right: 15px; }
+.py-15 { padding-top: 15px; padding-bottom: 15px; }
+.align-center {
+    align-items: center;
+}
+/*--------------------------------------------------------------
+# Responsive Utilities
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+    .hidden-md {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hidden-sm {
+        display: none;
+    }
+}
+/*--------------------------------------------------------------
+# Sidebar
+--------------------------------------------------------------*/
+.sidebar {
+    width: 300px;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+}
+
+.sidebar .widget {
+    margin-bottom: 20px;
+}
+
+.sidebar .widget-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.sidebar .widget ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar .widget ul li {
+    margin-bottom: 8px;
+}
+
+.sidebar .widget ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+.sidebar .widget ul li a:hover {
+    color: var(--primary-color);
+}
+/*--------------------------------------------------------------
+# Custom Post Types
+--------------------------------------------------------------*/
+.product {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.product img {
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+}
+
+.product h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.product p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+/*--------------------------------------------------------------
+# Custom Templates
+--------------------------------------------------------------*/
+.page-template-contact {
+    background-color: var(--secondary-color);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+}
+
+.page-template-about {
+    background-color: var(--secondary-color);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+}
