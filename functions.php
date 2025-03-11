@@ -12,6 +12,10 @@
  * Tags: seo-friendly, custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
  */
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
 // تنظیمات اولیه قالب
 function seokar_setup() {
     // پشتیبانی از title tag
@@ -56,10 +60,10 @@ function seokar_scripts() {
     wp_enqueue_style('seokar-style', get_stylesheet_uri());
 
     // افزودن استایل‌های سفارشی
-    wp_enqueue_style('seokar-custom-style', get_template_directory_uri() . '/assets/css/custom.css');
+    wp_enqueue_style('seokar-custom-style', get_template_directory_uri() . '/assets/css/custom.css', [], '1.0.0', 'all');
 
     // افزودن اسکریپت‌های سفارشی
-    wp_enqueue_script('seokar-custom-script', get_template_directory_uri() . '/assets/js/custom.js', ['jquery'], null, true);
+    wp_enqueue_script('seokar-custom-script', get_template_directory_uri() . '/assets/js/custom.js', ['jquery'], '1.0.0', true);
 
     // افزودن اسکریپت‌های وابسته به کامنت‌ها
     if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -133,25 +137,9 @@ function seokar_custom_logo_with_link($html) {
     return $html;
 }
 add_filter('get_custom_logo', 'seokar_custom_logo_with_link');
-function seokar_widgets_init() {
-    register_sidebar([
-        'name'          => __('سایدبار اصلی', 'seokar'),
-        'id'            => 'sidebar-1',
-        'description'   => __('این سایدبار در صفحات اصلی نمایش داده می‌شود.', 'seokar'),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ]);
-}
-add_action('widgets_init', 'seokar_widgets_init');
-// تصویر شاخص صفحه
-function seokar_post_thumbnail() {
-    if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
-        return;
-    }
 
-    echo '<div class="post-thumbnail">';
-    the_post_thumbnail('large', ['class' => 'img-fluid']);
-    echo '</div>';
+// افزودن پشتیبانی از ترجمه
+function seokar_load_textdomain() {
+    load_theme_textdomain('seokar', get_template_directory() . '/languages');
 }
+add_action('after_setup_theme', 'seokar_load_textdomain');
