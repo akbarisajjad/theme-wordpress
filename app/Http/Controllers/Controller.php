@@ -7,87 +7,164 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Date;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * بازگرداندن پاسخ موفقیت‌آمیز به صورت JSON
-     *
-     * @param mixed $data
-     * @param string $message
-     * @param int $statusCode
-     * @return JsonResponse
+     * متد عمومی برای تولید پاسخ JSON.
      */
-    protected function successResponse($data = null, string $message = 'عملیات با موفقیت انجام شد.', int $statusCode = 200): JsonResponse
-    {
-        return response()->json([
-            'success' => true,
+    protected function jsonResponse(
+        bool $success,
+        string $message,
+        int $statusCode,
+        mixed $data = null,
+        mixed $errors = null,
+        array $meta = [],
+        array $links = []
+    ): JsonResponse {
+        $response = [
+            'success' => $success,
             'message' => $message,
-            'data' => $data,
-        ], $statusCode);
+        ];
+
+        if (!is_null($data)) {
+            $response['data'] = $data;
+        }
+
+        if (!$success && !is_null($errors)) {
+            $response['errors'] = $errors;
+        }
+
+        if (!empty($meta)) {
+            $response['meta'] = $meta;
+        }
+
+        if (!empty($links)) {
+            $response['links'] = $links;
+        }
+
+        return response()->json($response, $statusCode);
     }
 
     /**
-     * بازگرداندن پاسخ خطا به صورت JSON
-     *
-     * @param string $message
-     * @param int $statusCode
-     * @param mixed $errors
-     * @return JsonResponse
+     * بازگرداندن پاسخ موفقیت‌آمیز.
      */
-    protected function errorResponse(string $message = 'خطایی رخ داده است.', int $statusCode = 400, $errors = null): JsonResponse
+    protected function successResponse(mixed $data = null, string $message = null, int $statusCode = 200, array $meta = [], array $links = []): JsonResponse
     {
-        return response()->json([
-            'success' => false,
-            'message' => $message,
-            'errors' => $errors,
-        ], $statusCode);
+        $message = $message ?? ResponseStatus::SUCCESS->message();
+        return $this->jsonResponse(true, $message, $statusCode, $data, null, $meta, $links);
     }
 
     /**
-     * بازگرداندن پاسخ خطای 404 به صورت JSON
-     *
-     * @param string $message
-     * @return JsonResponse
+     * بازگرداندن پاسخ خطا.
      */
-    protected function notFoundResponse(string $message = 'منبع مورد نظر یافت نشد.'): JsonResponse
+    protected function errorResponse(string $message = null, int $statusCode = 400, mixed $errors = null): JsonResponse
     {
+        $message = $message ?? ResponseStatus::ERROR->message();
+        return $this->jsonResponse(false, $message, $statusCode, null, $errors);
+    }
+
+    /**
+     * پاسخ ایجاد منبع.
+     */
+    protected function createdResponse(mixed $data = null, string $message = null): JsonResponse
+    {
+        $message = $message ?? ResponseStatus::CREATED->message();
+        return $this->successResponse($data, $message, 201);
+    }
+
+    /**
+     * پاسخ خطای 404.
+     */
+    protected function notFoundResponse(string $message = null): JsonResponse
+    {
+        $message = $message ?? ResponseStatus::NOT_FOUND->message();
         return $this->errorResponse($message, 404);
     }
 
     /**
-     * بازگرداندن پاسخ خطای اعتبارسنجی به صورت JSON
-     *
-     * @param mixed $errors
-     * @param string $message
-     * @return JsonResponse
+     * پاسخ خطای اعتبارسنجی.
      */
-    protected function validationErrorResponse($errors, string $message = 'خطا در اعتبارسنجی داده‌ها.'): JsonResponse
+    protected function validationErrorResponse(mixed $errors, string $message = null): JsonResponse
     {
+        $message = $message ?? ResponseStatus::VALIDATION_ERROR->message();
         return $this->errorResponse($message, 422, $errors);
     }
 
     /**
-     * بازگرداندن پاسخ خطای دسترسی غیرمجاز به صورت JSON
-     *
-     * @param string $message
-     * @return JsonResponse
+     * پاسخ خطای مجوز.
      */
-    protected function forbiddenResponse(string $message = 'شما مجوز دسترسی به این بخش را ندارید.'): JsonResponse
+    protected function forbiddenResponse(string $message = null): JsonResponse
     {
+        $message = $message ?? ResponseStatus::FORBIDDEN->message();
         return $this->errorResponse($message, 403);
     }
 
     /**
-     * بازگرداندن پاسخ خطای سرور به صورت JSON
-     *
-     * @param string $message
-     * @return JsonResponse
+     * پاسخ خطای احراز هویت.
      */
-    protected function serverErrorResponse(string $message = 'خطای سرور رخ داده است.'): JsonResponse
+    protected function unauthorizedResponse(string $message = null): JsonResponse
     {
+        $message = $message ?? ResponseStatus::UNAUTHORIZED->message();
+        return $this->errorResponse($message, 401);
+    }
+
+    /**
+     * پاسخ خطای درخواست‌های بیش از حد.
+     */
+    protected function tooManyRequestsResponse(string $message = null): JsonResponse
+    {
+        $message = $message ?? ResponseStatus::TOO_MANY_REQUESTS->message();
+        return $this->errorResponse($message, 429);
+    }
+
+    /**
+     * پاسخ خطای سرور.
+     */
+    protected function serverErrorResponse(string $message = null): JsonResponse
+    {
+        $message = $message ?? ResponseStatus::SERVER_ERROR->message();
         return $this->errorResponse($message, 500);
+    }
+
+    /**
+     * پاسخ بدون محتوا (204).
+     */
+    protected function noContentResponse(): JsonResponse
+    {
+        return response()->json(null, 204);
+    }
+
+    /**
+     * پاسخ پذیرفته شده (202).
+     */
+    protected function acceptedResponse(mixed $data = null, string $message = null): JsonResponse
+    {
+        $message = $message ?? 'درخواست پذیرفته شد.';
+        return $this->successResponse($data, $message, 202);
+    }
+}
+
+/**
+ * Enum برای وضعیت‌های پاسخ.
+ */
+enum ResponseStatus: string
+{
+    case SUCCESS = 'success';
+    case ERROR = 'error';
+    case NOT_FOUND = 'not_found';
+    case VALIDATION_ERROR = 'validation_error';
+    case FORBIDDEN = 'forbidden';
+    case UNAUTHORIZED = 'unauthorized';
+    case TOO_MANY_REQUESTS = 'too_many_requests';
+    case SERVER_ERROR = 'server_error';
+    case CREATED = 'created';
+
+    public function message(): string
+    {
+        return __('messages.' . $this->value);
     }
 }
