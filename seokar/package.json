@@ -1,0 +1,20 @@
+{
+    "name": "seokar",
+    "version": "1.0.0",
+    "description": "Seokar WordPress Theme",
+    "main": "index.js",
+    "scripts": {
+        "build": "webpack --mode production",
+        "dev": "webpack --mode development"
+    },
+    "author": "Sajjad Akbari",
+    "license": "MIT",
+    "devDependencies": {
+        "webpack": "^5.98.0",
+        "webpack-cli": "^6.0.1"
+    },
+    "directories": {
+        "test": "tests"
+    },
+    "keywords": []
+}

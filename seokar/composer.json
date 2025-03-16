@@ -1,0 +1,11 @@
+{
+    "name": "sajjadakbari/seokar",
+    "description": "Seokar WordPress theme",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Seokar\\": "app/"
+        }
+    },
+    "require": {}
+}
